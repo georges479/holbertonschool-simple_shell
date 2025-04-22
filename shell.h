@@ -7,6 +7,7 @@
 #include <stddef.h>
 #include <sys/wait.h>
 
-
+char *read_input(void);
+void execute_command(char *line);
 
 #endif

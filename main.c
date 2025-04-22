@@ -5,47 +5,21 @@
  *
  * Return: Always 0 (Success)
  */
-extern char **environ;
 int main(void)
 {
-	char *line = NULL, *argv[2];
-	size_t len = 0;
-	ssize_t nread;
-	pid_t pid;
+	char *line = NULL;
 
 	while (1)
 	{
         	write(1, "$ ", 2);
-		nread = getline(&line, &len, stdin);
-		if (nread == -1)
+		line = read_input();
+		if (line == NULL)
 		{
 			printf("See you soon!\n");
 			break;
 		}
-
-		if (line[nread - 1] == '\n')
-			line[nread - 1] = '\0';
-
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0)
-		{
-			argv[0] = line;
-			argv[1] = NULL;
-
-			execve(line, argv, environ);
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			wait(NULL);
-		}
+		execute_command(line);
+		free(line);
 	}
-	free(line);
 	return 0;
 }
