@@ -14,17 +14,22 @@ int main(void)
 	{
 		write(STDOUT_FILENO, "$ ", 2);
 		line = read_input();
-		if (line[0] == '\0')
-			continue;
-		else if (line == NULL)
+
+		if (line == NULL)
 		{
 			write(STDOUT_FILENO, "\n", 1);
 			break;
 		}
 
+		if (line[0] == '\0')
+		{
+			free(line);
+			continue;
+		}
+
 		cmd_count++;
 		execute_command(line, cmd_count);
+		free(line);
 	}
-	free(line);
 	return (0);
 }
