@@ -26,6 +26,7 @@ char *read_input(void)
 
 /**
  * execute_command - Creates a child process and executes the command
+ * @cmd_count: count the line of the command
  * @line: The command to execute
  */
 void execute_command(char *line, int cmd_count)

@@ -12,9 +12,11 @@ int main(void)
 
 	while (1)
 	{
-        	write(STDOUT_FILENO, "$ ", 2);
+		write(STDOUT_FILENO, "$ ", 2);
 		line = read_input();
-		if (line == NULL)
+		if (line[0] == '\0')
+			continue;
+		else if (line == NULL)
 		{
 			write(STDOUT_FILENO, "\n", 1);
 			break;
@@ -24,5 +26,5 @@ int main(void)
 		execute_command(line, cmd_count);
 	}
 	free(line);
-	return 0;
+	return (0);
 }
