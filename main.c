@@ -15,7 +15,7 @@ int main(void)
 		line = read_input();
 		if (line == NULL)
 		{
-			printf("See you soon!\n");
+			write(1, "\n", 1);
 			break;
 		}
 		execute_command(line);
