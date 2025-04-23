@@ -8,18 +8,21 @@
 int main(void)
 {
 	char *line = NULL;
+	int cmd_count = 0;
 
 	while (1)
 	{
-        	write(1, "$ ", 2);
+        	write(STDOUT_FILENO, "$ ", 2);
 		line = read_input();
 		if (line == NULL)
 		{
-			write(1, "\n", 1);
+			write(STDOUT_FILENO, "\n", 1);
 			break;
 		}
-		execute_command(line);
-		free(line);
+
+		cmd_count++;
+		execute_command(line, cmd_count);
 	}
+	free(line);
 	return 0;
 }

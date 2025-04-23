@@ -9,6 +9,6 @@
 
 extern char **environ;
 char *read_input(void);
-void execute_command(char *line);
+void execute_command(char *line, int cmd_count);
 
 #endif

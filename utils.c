@@ -28,7 +28,7 @@ char *read_input(void)
  * execute_command - Creates a child process and executes the command
  * @line: The command to execute
  */
-void execute_command(char *line)
+void execute_command(char *line, int cmd_count)
 {
 	pid_t pid;
 	char *argv[2];
@@ -43,8 +43,10 @@ void execute_command(char *line)
 	{
 		argv[0] = line;
 		argv[1] = NULL;
+
 		execve(line, argv, environ);
-		perror("execve");
+
+		dprintf(STDERR_FILENO, "./hsh: %d: %s: not found\n", cmd_count, line);
 		exit(EXIT_FAILURE);
 	}
 	else
