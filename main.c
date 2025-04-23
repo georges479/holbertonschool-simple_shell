@@ -1,41 +1,51 @@
-#include "shell.h"
+#include "simple_shell.h"
 
 /**
- * main - Entry point of the simple shell
+ * main - Simple shell implementation
  *
- * Return: Always 0 (Success)
+ * Return: 0 on success
  */
 int main(void)
 {
-	char *line = NULL;
-	int cmd_count = 0;
+	char *lineptr = NULL;
+	size_t n = 0;
+	ssize_t nread;
+	char *command;
 
 	while (1)
 	{
-		write(STDOUT_FILENO, "#cisfun$ ", 9);
-		line = read_input();
+		/* Display prompt */
+		print_prompt();
 
-		if (line == NULL)
+		/* Read command from stdin */
+		nread = read_command(&lineptr, &n);
+
+		/* Handle "end of file" condition (Ctrl+D) */
+		if (nread == -1)
 		{
 			write(STDOUT_FILENO, "\n", 1);
 			break;
 		}
 
-		if (_strcmp(line, "exit") == 0)
-		{
-			free(line);
-			break;
-		}
+		/* Remove newline character */
+		if (lineptr[nread - 1] == '\n')
+			lineptr[nread - 1] = '\0';
 
-		if (line[0] == '\0' || only_spaces(line))
-		{
-			free(line);
+		/* Skip empty lines */
+		if (strlen(lineptr) == 0)
 			continue;
-		}
 
-		cmd_count++;
-		execute_command(line, cmd_count);
-		free(line);
+		/* Get command from line */
+		command = get_command(lineptr);
+		if (command == NULL)
+			continue;
+
+		/* Execute the command */
+		execute_command(command);
+		free(command);
 	}
+
+	/* Free allocated memory */
+	free(lineptr);
 	return (0);
 }
