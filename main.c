@@ -1,51 +1,69 @@
-#include "simple_shell.h"
+#include "shell.h"
 
 /**
- * main - Simple shell implementation
+ * main - entry point for simple shell
+ * @argc: argument count
+ * @argv: argument vector
  *
  * Return: 0 on success
  */
-int main(void)
+int main(int argc, char **argv)
 {
-	char *lineptr = NULL;
-	size_t n = 0;
-	ssize_t nread;
-	char *command;
+	char *line = NULL;
+	char **args = NULL;
+	int status = 1;
+	info_t info = {0};
 
-	while (1)
+	/* Initialize shell info */
+	info.name = argv[0];
+	(void)argc;
+
+	/* Set up signal handler */
+	signal(SIGINT, handle_sigint);
+
+	/* Main shell loop */
+	while (status)
 	{
-		/* Display prompt */
-		print_prompt();
-
-		/* Read command from stdin */
-		nread = read_command(&lineptr, &n);
-
-		/* Handle "end of file" condition (Ctrl+D) */
-		if (nread == -1)
+		line = read_line(&info);
+		if (line == NULL)
 		{
-			write(STDOUT_FILENO, "\n", 1);
+			if (isatty(STDIN_FILENO))
+				printf("\n");
 			break;
 		}
 
-		/* Remove newline character */
-		if (lineptr[nread - 1] == '\n')
-			lineptr[nread - 1] = '\0';
-
 		/* Skip empty lines */
-		if (strlen(lineptr) == 0)
+		if (_strlen(line) == 0 || is_empty(line))
+		{
+			free(line);
 			continue;
+		}
 
-		/* Get command from line */
-		command = get_command(lineptr);
-		if (command == NULL)
+		args = split_line(line);
+		if (args == NULL)
+		{
+			free(line);
 			continue;
+		}
 
-		/* Execute the command */
-		execute_command(command);
-		free(command);
+		status = execute(args, &info);
+
+		free(line);
+		free_args(args);
 	}
 
-	/* Free allocated memory */
-	free(lineptr);
 	return (0);
+}
+
+/**
+ * handle_sigint - handles SIGINT signal (Ctrl+C)
+ * @sig: signal number
+ *
+ * Return: void
+ */
+void handle_sigint(int sig)
+{
+	(void)sig;
+	printf("\n$ ");
+	fflush(stdout);
 }
