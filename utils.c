@@ -54,3 +54,44 @@ void execute_command(char *line, int cmd_count)
 		wait(NULL);
 	}
 }
+
+/**
+ * _strcmp - Compares two strings
+ * @string_a: First string to compare
+ * @string_b: Second string to compare
+ *
+ * Return: 0 if equal, difference between first non-matching
+ * characters otherwise
+ */
+int _strcmp(const char *string_a, const char *string_b)
+{
+	int i = 0;
+
+	while (string_a[i] && string_b[i])
+	{
+		if (string_a[i] != string_b[i])
+			return (string_a[i] - string_b[i]);
+		i++;
+	}
+	return (string_a[i] - string_b[i]);
+}
+
+/**
+ * only_spaces - Checks if a string contains only spaces
+ * @line: The input string
+ *
+ * Return: 1 if only spaces or empty, 0 otherwise
+ */
+int only_spaces(const char *line)
+{
+	int i;
+
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t')
+			return (0);
+
+		i++;
+	}
+	return (1);
+}

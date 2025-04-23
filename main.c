@@ -12,7 +12,7 @@ int main(void)
 
 	while (1)
 	{
-		write(STDOUT_FILENO, "$ ", 2);
+		write(STDOUT_FILENO, "#cisfun$ ", 9);
 		line = read_input();
 
 		if (line == NULL)
@@ -21,7 +21,13 @@ int main(void)
 			break;
 		}
 
-		if (line[0] == '\0')
+		if (_strcmp(line, "exit") == 0)
+		{
+			free(line);
+			break;
+		}
+
+		if (line[0] == '\0' || only_spaces(line))
 		{
 			free(line);
 			continue;
