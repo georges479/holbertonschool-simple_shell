@@ -82,7 +82,7 @@ int _strcmp(const char *string_a, const char *string_b)
  *
  * Return: 1 if only spaces or empty, 0 otherwise
  */
-int only_spaces(const char *line)
+int only_spaces(char *line)
 {
 	int i;
 
