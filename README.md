@@ -40,4 +40,4 @@ shell.h: Header file with function prototypes and data structures
 
 FLOWCHART:
 
-https://media.discordapp.net/attachments/1359096991908495432/1364910426491715624/Capture_decran_2025-04-24_122540.png?ex=680c0c24&is=680abaa4&hm=4d87c4cbc81f29bd391203c64e89e38f892935fefbacb6e90d16e7e1701c4b60&=&format=webp&quality=lossless&width=1082&height=969
+![Texte alternatif](Capture_decran_2025-04-24_122540.png)
