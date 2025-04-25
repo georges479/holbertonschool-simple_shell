@@ -1,8 +1,9 @@
-Simple Shell
-Description
+DESCRIPTION:
+
 This is a simple UNIX command line interpreter (shell) that can handle commands with arguments, execute programs by searching in the PATH, and provide built-in commands. It was created as part of the Holberton School curriculum.
 
-Features
+FEATURES:
+
 Display a prompt and wait for user input
 Execute commands with arguments
 Handle the PATH environment variable
@@ -11,11 +12,13 @@ exit: Exit the shell
 env: Print the current environment
 Handle errors and "end of file" condition (Ctrl+D)
 
-Compilation
+COMPILATION:
+
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 
 
-Usage
+USAGE:
+
 Interactive Mode
 ./hsh
 $ ls -l
@@ -23,11 +26,13 @@ $ pwd
 $ exit
 
 
-Non-Interactive Mode
+NON-INTERACTIVE MODE:
+
 echo "ls -l" | ./hsh
 
 
-Files
+FILES:
+
 main.c: Main shell loop and core functionality
 builtins.c: Implementation of built-in commands
 helpers.c: Helper functions for string manipulation and memory management
