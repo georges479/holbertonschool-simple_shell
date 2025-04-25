@@ -1,0 +1,87 @@
+License
+This project is licensed under the terms of the MIT license.
+
+GitHub
+https://github.com/georges479/holbertonschool-simple_shell.git
+
+[12:19]
+.TH HSH 1 "April 2025" "Simple Shell" "User Commands"
+
+.SH NAME
+hsh - a simple command line interpreter (shell)
+
+.SH SYNOPSIS
+.B ./hsh
+
+.SH DESCRIPTION
+.B hsh
+is a simple command line interpreter that executes commands read from standard input.
+It is designed to mimic basic functionality of the sh shell.
+
+.SH INVOCATION
+.B hsh
+can be invoked both interactively and non-interactively.
+
+If
+.B hsh
+is invoked with standard input connected to a terminal, it reads commands interactively.
+
+If standard input is not connected to a terminal, it reads commands from standard input and executes them.
+
+.SH COMMANDS
+The shell interprets the words it reads as commands and arguments.
+
+.B Built-in commands:
+.TP
+.B exit
+Exit the shell.
+.TP
+.B env
+Print the current environment variables.
+
+.SH COMMAND EXECUTION
+After a command has been split into words, if it contains no slashes, the shell searches for it in the list of built-in commands. If the command is not a built-in, the shell searches each element of the PATH environment variable for a directory containing an executable file by that name.
+
+If the command name contains a slash, the shell executes it directly.
+
+.SH ENVIRONMENT
+The environment is initially inherited from the shell's parent process. When a program is executed, the environment is passed to the program.
+
+.SH EXIT STATUS
+The exit status of the shell is the exit status of the last command executed.
+
+.SH EXAMPLES
+.PP
+Interactive mode:
+.PP
+.nf
+.RS
+$ ./hsh
+($) ls
+file1 file2 file3
+($) pwd
+/home/user/holbertonschool-simple_shell
+($) exit
+$
+.RE
+.fi
+.PP
+Non-interactive mode:
+.PP
+.nf
+.RS
+$ echo "ls" | ./hsh
+file1 file2 file3
+$
+.RE
+.fi
+
+.SH AUTHORS
+Written by [Your Name] and [Partner Name].
+
+.SH BUGS
+Report bugs to [your email].
+
+.SH SEE ALSO
+.BR sh (1),
+.BR bash (1)
